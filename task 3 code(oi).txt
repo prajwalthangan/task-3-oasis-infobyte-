@@ -1,0 +1,261 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Temperature Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="task-bar">
+            <div id="p1"></div>
+            <div class="icons">
+                <i class="bi bi-bell-slash-fill"></i>
+                <i class="bi bi-bluetooth"></i>
+                <i class="bi bi-battery-charging"></i>
+            </div>
+        </div>
+        <h1>Temperature Converter</h1>
+        <div class="inputs">
+            <div>
+                <label for="degree">Degrees (&deg;C)</label>
+                <input type="number" name="degree" id="inputValue" required>
+            </div>
+            <div>
+                <label for="type">Type</label>
+                <select name="type" id="type">
+                    <option value="celcius">Celcius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                    <option value="rankine">Rankine</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" id="btn" onclick="temperature()">Convert</button>
+        <div class="resultss">
+            <label for="result">Result</label>
+            <div id="result"></div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
+
+
+
+
+style.css
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    background-color: rgb(174, 174, 174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: white;
+    width: 340px;
+    height: 373px;
+    padding: 5px 25px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    box-shadow: 20px 20px 20px grey;
+}
+
+.container h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 33px;
+    font-weight: 700;
+    text-align: center;
+    user-select: none;
+    letter-spacing: 1px;
+}
+
+.task-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    padding: 2px 0 0 0;
+}
+
+#p1 {
+    font-family: system-ui;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+}
+
+.inputs div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 165px;
+}
+
+#result,
+#inputValue {
+    height: 40px;
+    font-size: 25px;
+    border: 1px solid gray;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    padding: 0 10px;
+    font-weight: 600;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#result:focus,
+#inputValue:focus {
+    height: 40px;
+    font-size: 25px;
+    border: 1px solid rgb(130, 130, 255);
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    padding: 0 10px;
+}
+
+#btn {
+    height: 45px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#btn:active {
+    height: 45px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: rgb(108, 108, 255);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.resultss {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#type {
+    height: 41px;
+    font-size: 25px;
+    border: 1px solid gray;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    padding: 0 10px;
+}
+
+#type:focus {
+    height: 41px;
+    font-size: 25px;
+    border: 1px solid rgb(130, 130, 255);
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    padding: 0 10px;
+}
+
+label {
+    font-size: 17px;
+    font-family: -webkit-pictograph;
+    color: gray;
+}
+
+@media only screen and (max-width: 400px) {
+    .container {
+        transform: scale(0.9);
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .container {
+        transform: scale(0.8);
+    }
+}
+
+
+
+
+script.js
+
+// Logic for the digital watch
+function currentTime() {
+    let p1 = document.getElementById("p1")
+    let date = new Date();
+    let hr = date.getHours();
+    let mn = date.getMinutes();
+    let ss = date.getSeconds();
+    let current_time = hr + ":" + mn + ":" + ss;
+    p1.innerHTML = current_time;
+    let t = setTimeout(function () { currentTime() }, 1000);
+}
+currentTime();
+
+
+
+// Logic for temperature converter
+function temperature() {
+    let inputValue = document.querySelector("#inputValue").value;
+    let type = document.querySelector("#type");
+    let result = document.querySelector("#result");
+    if (inputValue == "") {
+        alert("Please Enter any Number....")
+        location.reload()
+    }
+    else if (type.value == "celcius") {
+        let Celcius = Number.parseInt(inputValue) * 1
+        result.innerHTML = Celcius.toFixed(3) + ` &deg;C`
+    }
+    else if (type.value == "fahrenheit") {
+        let Fahrenheit = Number.parseInt(inputValue) * (9 / 5) + 32
+        result.innerHTML = Fahrenheit.toFixed(3) + " F"
+    }
+    else if (type.value == "kelvin") {
+        let Kelvin = Number.parseInt(inputValue) + 273.15
+        result.innerHTML = Kelvin.toFixed(3) + " K"
+    }
+    else if (type.value == "rankine") {
+        let Rankine = Number.parseInt(inputValue) * (9 / 5) + 491.67
+        result.innerHTML = Rankine.toFixed(3) + " R"
+    }
+}
